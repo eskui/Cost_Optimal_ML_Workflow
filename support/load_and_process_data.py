@@ -94,13 +94,13 @@ def inv_standardize(z,mu,std):
     return z*std + mu
 
 def detrend(data):
-    x = data.iloc[:,0].to_numpy().reshape(-1,1)
-    y = data.iloc[:,1].to_numpy()
+    x = data.to_numpy().reshape(-1,1)
+    y = np.arange(0,len(data))
     model = LinearRegression()
     model.fit(x, y)
     trend = model.predict(x)
     detrended = y-trend
-    return detrended, model
+    return detrended
 
 def trending(y, x, model):
     trend = model.predict(x)
@@ -215,40 +215,27 @@ def clean(data, outlier_remove = True):
 
     return data
 
-def clean_and_scale_std(data, outlier_remove = True):
+def clean_deterned_WIP(data, outlier_remove = True):
     print("Clean, augment, and transform economic data...")
 
-    K = 6
-    TREND_TRESHOLD = 90
+    values = data[data.notnull()]
+    detrended = detrend(values)
+    if values[0] < values[-1] and np.percentile(values,TREND_TRESHOLD) < trend[-1] or values[0] > values[-1] and np.percentile(values,TREND_TRESHOLD) > trend[-1]:
+        data.loc[data[column].notnull(),column] = detrended
 
-    data = data.dropna(1,"all")
-    mus = {}
-    stds = {}
-    trend_models = {}
+    elif outlier_remove:
+        data.loc[data[column].notnull(),column] = IQR_outlier_remove(values,K).fillna(method="bfill")
 
-    count = 0
-    with progressbar.ProgressBar(data.shape[1]) as bar:
-        for column in data:
-            values = data.loc[data[column].notnull(),column]
-            detrended, model, trend = detrend(values)
-            if values[0] < values[-1] and np.percentile(values,TREND_TRESHOLD) < trend[-1] or values[0] > values[-1] and np.percentile(values,TREND_TRESHOLD) > trend[-1]:
-                data.loc[data[column].notnull(),column] = detrended
-                trend_models[column] = model
+        #mu = np.mean(data[column])
+        #std = np.std(data[column])
+        #data[column] = standardize(data[column],mu,std)
+        #mus[column] = mu
+        #stds[column] = std
+        #tallenna mu ja std dictiin
+        count += 1
+    #data.fillna(value=0, inplace = True)
 
-            elif outlier_remove:
-                data.loc[data[column].notnull(),column] = IQR_outlier_remove(values,K).fillna(method="bfill")
-
-            mu = np.mean(data[column])
-            std = np.std(data[column])
-            data[column] = standardize(data[column],mu,std)
-            mus[column] = mu
-            stds[column] = std
-            #tallenna mu ja std dictiin
-            bar.update(count)
-            count += 1
-    data.fillna(value=0, inplace = True)
-
-    return data, stds, mus, trend_models
+    return data #, stds, mus, trend_models
 
 def generate_volumebars_to_file(data_path,period, frequency, cs = 1000000):
     df_chunk = pd.read_csv(data_path, chunksize = cs)
