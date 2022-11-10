@@ -7,7 +7,6 @@ from datetime import timedelta
 #import re
 #import matplotlib.pyplot as plt
 import support.ts_class as ts_class
-import support.load_and_process_data as lpdata
 import math
 import pyarrow.parquet as pq
 import sys
@@ -102,7 +101,7 @@ def main():
         elapsed_time += timedelta(seconds=end-start).total_seconds()
 
     print("Average time to run single gradient update: {} seconds".format(elapsed_time/iterations))
-    
+
     estimate_required_time(device_name)
 
 if __name__ == "__main__":
