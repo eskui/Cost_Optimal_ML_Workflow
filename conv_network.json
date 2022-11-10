@@ -1,0 +1,28 @@
+{
+    "name": "Conv1D",
+    "layers": {
+        "data": {
+            "parents": [],
+            "type": "Input",
+            "tensor": [32, 1, 7200, 286]
+        },
+        "conv1": {
+            "parents":["data"],
+            "type": "Convolution",
+            "filter": [1, 7200, 286, 32],
+            "padding": "VALID",
+            "strides": [1, 1, 1, 1],
+            "activation_fn": "relu"
+        },
+        "dense1": {
+            "parents":["conv1"],
+            "type": "InnerProduct",
+            "num_outputs": 32
+        },
+        "dense2": {
+            "parents":["dense1"],
+            "type": "InnerProduct",
+            "num_outputs": 1
+        }
+    }
+}
