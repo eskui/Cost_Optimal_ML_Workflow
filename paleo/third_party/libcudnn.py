@@ -1285,8 +1285,8 @@ def cudnnFindConvolutionBackwardDataAlgorithm(handle, wDesc, dyDesc,
     cudnnCheckStatus(status)
     return perfResults[0:returnedAlgoCount.value]
 
-_libcudnn.cudnnGetConvolutionBackwardDataAlgorithm.restype = int
-_libcudnn.cudnnGetConvolutionBackwardDataAlgorithm.argtypes = [ctypes.c_void_p,
+_libcudnn.cudnnGetConvolutionBackwardDataAlgorithm_v7.restype = int
+_libcudnn.cudnnGetConvolutionBackwardDataAlgorithm_v7.argtypes = [ctypes.c_void_p,
                                                                ctypes.c_void_p,
                                                                ctypes.c_void_p,
                                                                ctypes.c_void_p,
@@ -1297,7 +1297,7 @@ _libcudnn.cudnnGetConvolutionBackwardDataAlgorithm.argtypes = [ctypes.c_void_p,
 def cudnnGetConvolutionBackwardDataAlgorithm(handle, wDesc, dyDesc, convDesc,
                                              dxDesc, preference, memoryLimitInbytes):
     algo = ctypes.c_int()
-    status = _libcudnn.cudnnGetConvolutionBackwardDataAlgorithm(handle,
+    status = _libcudnn.cudnnGetConvolutionBackwardDataAlgorithm_v7(handle,
                                                                 wDesc,
                                                                 dyDesc,
                                                                 convDesc,
