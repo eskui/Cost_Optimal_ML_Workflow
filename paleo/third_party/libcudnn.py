@@ -1041,8 +1041,8 @@ def cudnnFindConvolutionForwardAlgorithm(handle, xDesc, wDesc, convDesc, yDesc, 
     return perfResults[0:returnedAlgoCount.value]
 
 
-_libcudnn.cudnnGetConvolutionForwardAlgorithm.restype = int
-_libcudnn.cudnnGetConvolutionForwardAlgorithm.argtypes = [ctypes.c_void_p,
+_libcudnn.cudnnGetConvolutionForwardAlgorithm_v7.restype = int
+_libcudnn.cudnnGetConvolutionForwardAlgorithm_v7.argtypes = [ctypes.c_void_p,
                                                           ctypes.c_void_p, ctypes.c_void_p,
                                                           ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int,
                                                           ctypes.c_size_t, ctypes.c_void_p]
@@ -1079,7 +1079,7 @@ def cudnnGetConvolutionForwardAlgorithm(handle, srcDesc, wDesc,
     """
     algo = ctypes.c_int()
 
-    status = _libcudnn.cudnnGetConvolutionForwardAlgorithm(handle, srcDesc, wDesc,
+    status = _libcudnn.cudnnGetConvolutionForwardAlgorithm_v7(handle, srcDesc, wDesc,
                                                convDesc, destDesc, preference,
                                                ctypes.c_size_t(memoryLimitInbytes),
                                                ctypes.byref(algo))
