@@ -30,10 +30,6 @@ class CudnnProfiler(BaseProfiler):
                             layer, self.options.num_iter,
                             self.options.num_warmup)
 
-                if (not self.options.gradient_wrt or
-                        self.options.gradient_wrt == 'filter'):
-                    t += self._profile_conv2d_bwd_filter(
-                        layer, self.options.num_iter, self.options.num_warmup)
         elif layer.layertype == 'deconv2d':
             if self.options.direction == 'forward':
                 t += self._profile_conv2d_bwd_data(layer._transposed,
