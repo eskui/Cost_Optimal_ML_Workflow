@@ -120,7 +120,7 @@ class TensorFlowProfiler(BaseProfiler):
 
     def _get_variable(self, shape, name='constant'):
         return tf.Variable(
-            tf.truncated_normal(
+            tf.random.truncated_normal(
                 shape, dtype=tf.float32, stddev=1e-1),
             name='rand_{}'.format(name))
 
@@ -258,13 +258,13 @@ class TensorFlowProfiler(BaseProfiler):
     def _execute(self, layer_ops, bwd_ops, graph):
         with graph.as_default():
             with tf.device(self._device):
-                config = tf.ConfigProto(
+                config = tf.compat.v1.ConfigProto(
                     allow_soft_placement=False,
                     log_device_placement=(
                         self._logger.getEffectiveLevel() == logging.DEBUG),
-                    graph_options=tf.GraphOptions(
-                        optimizer_options=tf.OptimizerOptions(
-                            opt_level=tf.OptimizerOptions.L0)))
+                    graph_options=tf.compat.v1.GraphOptions(
+                        optimizer_options=tf.compat.v1.OptimizerOptions(
+                            opt_level=tf.compat.v1.OptimizerOptions.L0)))
 
                 ops_to_run = None
                 if self.options.direction == 'forward':
@@ -295,10 +295,10 @@ class TensorFlowProfiler(BaseProfiler):
                     target_bwd_op = tf.group(tf.shape(target))
                     ops_to_run = target_bwd_op
 
-                init = tf.initialize_all_variables()
+                init = tf.compat.v1.initialize_all_variables()
 
                 # Create a session and initialize variables.
-                with tf.Session(config=config) as sess:
+                with tf.compat.v1.Session(config=config) as sess:
 
                     # writer = tf.train.SummaryWriter('logs/', sess.graph)
                     sess.run(init)

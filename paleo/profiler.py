@@ -11,11 +11,10 @@ from paleo import simulation
 from paleo.utils import save_layer
 from paleo import comm
 
-#FORMAT = "%(levelname)s %(pathname)s:%(lineno)d] %(message)s"
-#logging.basicConfig(format=FORMAT)
-#logger = logging.getLogger("paleo")
-#logger.setLevel(logging.INFO)
-
+FORMAT = "%(levelname)s %(pathname)s:%(lineno)d] %(message)s"
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger("paleo")
+logger.setLevel(logging.INFO)
 
 class Profiler():
     def __init__(self, filename, separator='\t'):
@@ -111,7 +110,7 @@ class Profiler():
         options.num_warmup = num_warmup
         options.num_iter = num_iter
         options.include_bias_and_activation = False
-        from profilers.tensorflow_profiler import TensorFlowProfiler
+        from paleo.profilers.tensorflow_profiler import TensorFlowProfiler
         profiler = TensorFlowProfiler(options)
 
         if batch_size:
