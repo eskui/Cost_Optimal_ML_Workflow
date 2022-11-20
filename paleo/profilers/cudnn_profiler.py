@@ -326,7 +326,7 @@ def get_convolution_bwd_filter_algorithm(inputs,
             'CUDNN_CONVOLUTION_BWD_FILTER_NO_WORKSPACE']
         space_limit = 0
 
-    algo = libcudnn.cudnnGetConvolutionBackwardFilterAlgorithm(
+    algo = libcudnn.cudnnGetConvolutionBackwardFilterAlgorithm_v7(
         cudnn_context, X_desc, Y_desc, conv_desc, filters_desc,
         convolution_bwd_pref, space_limit)
 
