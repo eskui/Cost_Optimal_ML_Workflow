@@ -93,14 +93,15 @@ def main():
         one_batch_inputs = example_inputs
         one_batch_labels = example_labels
 
-    print("Training started, running {0} iterations".format(iterations))
+    print("Training started, running {0} iterations with first half as warmup".format(iterations))
     for i in range(iterations):
         start = timer()
         model.train_on_batch(one_batch_inputs, one_batch_labels)
         end = timer()
-        elapsed_time += timedelta(seconds=end-start).total_seconds()
+        if i+1 > (iterations/2):
+            elapsed_time += timedelta(seconds=end-start).total_seconds()
 
-    print("Average time to run single gradient update: {} seconds".format(elapsed_time/iterations))
+    print("Average time to run single gradient update: {} seconds".format(elapsed_time/(iterations/2)))
 
     estimate_required_time(device_name)
 
