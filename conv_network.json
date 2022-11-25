@@ -4,12 +4,12 @@
         "data": {
             "parents": [],
             "type": "Input",
-            "tensor": [32, 1, 7200, 286]
+            "tensor": [32, 1, 1440, 286]
         },
         "conv1": {
             "parents":["data"],
             "type": "Convolution",
-            "filter": [1, 7200, 286, 32],
+            "filter": [1, 300, 286, 32],
             "padding": "VALID",
             "strides": [1, 1, 1, 1],
             "activation_fn": "relu"
