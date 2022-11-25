@@ -15,6 +15,7 @@ from datetime import timedelta
 import support.paleo_estimator as paleo
 
 import time
+import datetime
 
 class TimeHistory(tf.keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
@@ -76,8 +77,12 @@ def main():
 
     single_batch_time = times[0]*1000/NO_OF_BATCHES
     single_batch_time_paleo = paleo.estimate_required_time(device_name)
-
+    ct = datetime.datetime.now()
     print("Average execution time of one batch was (ms):\n{0} \nPALEO estimation:\n{1}".format(single_batch_time,single_batch_time_paleo))
+
+    f = open("train_model_results.csv", "a")
+    f.write("{0},{1},{2},{3},{4},{5}".format(ct,single_batch_time,single_batch_time_paleo,device_name,NO_OF_BATCHES,WIND_SIZE))
+    f.close()
 
 if __name__ == "__main__":
     main()
