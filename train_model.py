@@ -81,7 +81,7 @@ def main():
     print("Average execution time of one batch was (ms):\n{0} \nPALEO estimation:\n{1}".format(single_batch_time,single_batch_time_paleo))
 
     f = open("train_model_results.csv", "a")
-    f.write("{0},{1},{2},{3},{4},{5}".format(ct,single_batch_time,single_batch_time_paleo,device_name,NO_OF_BATCHES,WIND_SIZE))
+    f.write("{0},{1},{2},{3},{4},{5}\n".format(ct,single_batch_time,single_batch_time_paleo,device_name,NO_OF_BATCHES,WIND_SIZE))
     f.close()
 
 if __name__ == "__main__":
