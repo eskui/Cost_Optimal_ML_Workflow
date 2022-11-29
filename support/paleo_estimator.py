@@ -10,7 +10,7 @@ device.Device args:
 """
 
 NETWORK = device.Network("EC2_network", 20)
-DEVICE_LOCAL = device.Device("local_CPU",2300,40,2133,False)
+DEVICE_CPU = device.Device("C5D_CPU",3000,1165,119.21,False)
 DEVICE_A10GPU = device.Device("G5_A10GPU",885,31240,600,True)
 DEVICE_T4GPU = device.Device("G4DN_T4GPU",585,8100,320,True)
 
@@ -19,8 +19,8 @@ def estimate_required_time(device_name):
         device = DEVICE_A10GPU
     elif device_name == "G4DN_T4GPU":
         device = DEVICE_T4GPU
-    elif device_name == "local_CPU":
-        device = DEVICE_LOCAL
+    elif device_name == "C5D_CPU":
+        device = DEVICE_CPU
     else:
         print("Please give a proper device and try again")
         exit()
