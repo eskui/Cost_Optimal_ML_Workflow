@@ -8,5 +8,5 @@ aws s3 cp --recursive s3://ejkquant-uswest1/train_data ./train_data
 pip install pandas pyarrow matplotlib click
 
 python3 train_model.py 2017 1440 G5_A10GPU 16000
-python3 train_model.py 2017 1440 G4DN_T4GPU 16000
-python3 train_model.py 2017 1440 C5D_CPU 50
+python3 train_model.py 2017 1440 G3S_M60GPU 16000
+python3 train_model.py 2017 1440 C5D_CPU 16000

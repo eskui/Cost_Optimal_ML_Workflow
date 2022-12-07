@@ -12,13 +12,13 @@ device.Device args:
 NETWORK = device.Network("EC2_network", 20)
 DEVICE_CPU = device.Device("C5D_CPU",3000,1165,119.21,False)
 DEVICE_A10GPU = device.Device("G5_A10GPU",885,31240,600,True)
-DEVICE_T4GPU = device.Device("G4DN_T4GPU",585,8100,320,True)
+DEVICE_M60GPU = device.Device("G3S_M60GPU",899,9650,320,True)
 
 def estimate_required_time(device_name):
     if device_name == "G5_A10GPU":
         device = DEVICE_A10GPU
-    elif device_name == "G4DN_T4GPU":
-        device = DEVICE_T4GPU
+    elif device_name == "G3S_M60GPU":
+        device = DEVICE_M60GPU
     elif device_name == "C5D_CPU":
         device = DEVICE_CPU
     else:
