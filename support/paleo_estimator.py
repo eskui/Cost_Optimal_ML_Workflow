@@ -10,7 +10,7 @@ device.Device args:
 """
 
 NETWORK = device.Network("EC2_network", 20)
-DEVICE_CPU = device.Device("C5D_CPU",3000,1165,119.21,False)
+DEVICE_CPU = device.Device("C5D_CPU",3000,1500,119.21,False)
 DEVICE_A10GPU = device.Device("G5_A10GPU",885,31240,600,True)
 DEVICE_M60GPU = device.Device("G3S_M60GPU",899,9650,320,True)
 

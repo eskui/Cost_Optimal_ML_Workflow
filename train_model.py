@@ -72,7 +72,7 @@ def main():
     model.compile(loss=tf.losses.MeanSquaredError(),optimizer=optimizer,metrics=[tf.metrics.MeanAbsoluteError()])
 
     time_callback = TimeHistory()
-    history = model.fit(window.train, epochs=1,validation_data=window.val, steps_per_epoch=NO_OF_BATCHES, callbacks=[time_callback])
+    model.fit(window.train, epochs=1,validation_data=window.val, steps_per_epoch=NO_OF_BATCHES, callbacks=[time_callback])
     times = time_callback.times
 
     single_batch_time = times[0]*1000/NO_OF_BATCHES
